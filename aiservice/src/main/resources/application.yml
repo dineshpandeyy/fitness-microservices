@@ -1,0 +1,15 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: ai-service
+
+  data:
+    mongodb:
+      uri: mongodb+srv://dineshpandey3536:Bs1AsIozmAS6xAgj@cluster0.xpom1am.mongodb.net/fitness_recommendation
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
