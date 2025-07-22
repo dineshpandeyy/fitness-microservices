@@ -2,7 +2,6 @@ server:
   port: 8083
 
 spring:
-
   data:
     mongodb:
       uri: mongodb+srv://dineshpandey3536:Bs1AsIozmAS6xAgj@cluster0.xpom1am.mongodb.net/fitness_recommendation
