@@ -69,11 +69,8 @@ public class UserService {
         // Check if user exists by either ID or Keycloak ID
         boolean existsById = repository.existsById(userId);
         boolean existsByKeycloakId = repository.existsByKeycloakId(userId);
-        boolean result = existsById || existsByKeycloakId;
-        
-        log.info("Validating user ID: {}, existsById: {}, existsByKeycloakId: {}, result: {}", 
-                userId, existsById, existsByKeycloakId, result);
-        
-        return result;
+        return existsById || existsByKeycloakId;
     }
+
+
 }

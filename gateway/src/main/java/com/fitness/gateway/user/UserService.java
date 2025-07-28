@@ -33,13 +33,10 @@ public class UserService {
     }
 
     public Mono<Boolean> validateUser(String userId) {
-        log.info("Validating user with ID: {}", userId);
         return userServiceWebClient.get()
                 .uri("api/users/{userId}/validate", userId)
                 .retrieve()
                 .bodyToMono(Boolean.class)
-                .doOnSuccess(result -> log.info("User validation result: {}", result))
-                .doOnError(error -> log.error("Error validating user: {}", error.getMessage()))
                 .onErrorReturn(false);
     }
 

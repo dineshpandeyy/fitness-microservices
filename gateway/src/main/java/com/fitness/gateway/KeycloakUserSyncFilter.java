@@ -29,7 +29,6 @@ public class KeycloakUserSyncFilter implements WebFilter {
 
         // If no token or registerRequest is null, just continue with the request
         if (token == null || registerRequest == null) {
-            log.debug("No token or registerRequest, continuing with request");
             return chain.filter(exchange);
         }
 
@@ -50,7 +49,6 @@ public class KeycloakUserSyncFilter implements WebFilter {
                                 return Mono.empty();
                             }
                         } else {
-                            log.info("User already exist, Skipping sync.");
                             return Mono.empty();
                         }
                     })
@@ -66,7 +64,6 @@ public class KeycloakUserSyncFilter implements WebFilter {
 
     private RegisterRequest getUserDetails(String token) {
         if (token == null || token.trim().isEmpty()) {
-            log.debug("No token provided");
             return null;
         }
         
@@ -83,7 +80,6 @@ public class KeycloakUserSyncFilter implements WebFilter {
             registerRequest.setLastName(claims.getStringClaim("family_name"));
             return registerRequest;
         } catch (Exception e) {
-            log.warn("Failed to parse JWT token: {}", e.getMessage());
             return null;
         }
     }
