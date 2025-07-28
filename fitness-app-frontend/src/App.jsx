@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Divider } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "react-oauth2-code-pkce";
 import { useDispatch } from "react-redux";
@@ -31,6 +31,12 @@ function App() {
     }
   }, [token, tokenData, dispatch]);
 
+  const handleSignup = () => {
+    // Redirect to Keycloak registration page with explicit registration action
+    const signupUrl = 'http://localhost:8181/realms/fitness-oauth2/protocol/openid-connect/auth?client_id=oauth2-pkce-client&redirect_uri=http://localhost:5173&response_type=code&scope=openid%20profile%20email%20offline_access&kc_action=register&kc_locale=en';
+    window.location.href = signupUrl;
+  };
+
   return (
     <Router>
       {!token ? (
@@ -50,9 +56,10 @@ function App() {
             <Typography variant="h4" gutterBottom fontWeight={700} color="primary.main">
               Welcome to FitTrack
       </Typography>
-            <Typography variant="subtitle1" sx={{ mb: 3, color: 'text.secondary' }}>
+            <Typography variant="subtitle1" sx={{ mb: 3, color: 'text.secondary', textAlign: 'center' }}>
               Track your workouts, stay motivated, and achieve your fitness goals!
       </Typography>
+            
             <Button 
               variant="contained" 
               color="primary" 
@@ -68,9 +75,25 @@ function App() {
                   alert('Login failed. Please check if Keycloak is running on http://localhost:8181');
                 }
               }} 
-              sx={{ mt: 2, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2 }}
+              sx={{ mt: 2, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2, mb: 2 }}
             >
               {isLoading ? 'Connecting...' : 'Login'}
+            </Button>
+
+            <Divider sx={{ width: '100%', my: 2 }} />
+
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, textAlign: 'center' }}>
+              Don't have an account?
+            </Typography>
+
+            <Button 
+              variant="outlined" 
+              color="primary" 
+              size="large"
+              onClick={handleSignup}
+              sx={{ px: 4, py: 1.5, fontWeight: 600, fontSize: '1rem', borderRadius: 2 }}
+            >
+              Sign Up
             </Button>
           </CardContent>
         </Card>
