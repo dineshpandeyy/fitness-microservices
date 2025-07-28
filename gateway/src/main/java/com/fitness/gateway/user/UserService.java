@@ -1,6 +1,8 @@
 package com.fitness.gateway.user;
 
-import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -8,13 +10,15 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Mono;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
-    public final WebClient userServiveWebClient;
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    
+    @Autowired
+    public WebClient userServiceWebClient;
 
     public boolean validateUserName(String userId) {
         try {
-            return Boolean.TRUE.equals(userServiveWebClient.get()
+            return Boolean.TRUE.equals(userServiceWebClient.get()
                     .uri("api/users/{userId}/validate", userId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
@@ -29,15 +33,18 @@ public class UserService {
     }
 
     public Mono<Boolean> validateUser(String userId) {
-        return userServiveWebClient.get()
+        log.info("Validating user with ID: {}", userId);
+        return userServiceWebClient.get()
                 .uri("api/users/{userId}/validate", userId)
                 .retrieve()
                 .bodyToMono(Boolean.class)
+                .doOnSuccess(result -> log.info("User validation result: {}", result))
+                .doOnError(error -> log.error("Error validating user: {}", error.getMessage()))
                 .onErrorReturn(false);
     }
 
     public Mono<Void> registerUser(RegisterRequest registerRequest) {
-        return userServiveWebClient.post()
+        return userServiceWebClient.post()
                 .uri("api/users/register")
                 .bodyValue(registerRequest)
                 .retrieve()

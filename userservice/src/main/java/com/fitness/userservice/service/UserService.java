@@ -33,6 +33,7 @@ public class UserService {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+        user.setKeycloakId(request.getKeycloakId());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
 
@@ -65,6 +66,14 @@ public class UserService {
     }
 
     public Boolean existByUserId(String userId) {
-        return  repository.existsByKeycloakId(userId);
+        // Check if user exists by either ID or Keycloak ID
+        boolean existsById = repository.existsById(userId);
+        boolean existsByKeycloakId = repository.existsByKeycloakId(userId);
+        boolean result = existsById || existsByKeycloakId;
+        
+        log.info("Validating user ID: {}, existsById: {}, existsByKeycloakId: {}, result: {}", 
+                userId, existsById, existsByKeycloakId, result);
+        
+        return result;
     }
 }
