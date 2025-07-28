@@ -24,6 +24,34 @@ This project is a microservices-based fitness application. It consists of severa
         └───────────────┘ └───────────────┘ └───────────────┘
 ```
 
+## Development
+
+### Backend Development
+- **Language:** Java 17+
+- **Framework:** Spring Boot 3.x
+- **Build Tool:** Maven
+- **Service Discovery:** Eureka
+- **Configuration:** Spring Cloud Config
+- **Message Queue:** RabbitMQ
+- **Databases:** PostgreSQL, MongoDB
+
+### Frontend Development
+- **Framework:** React 18
+- **Build Tool:** Vite
+- **UI Library:** Material UI
+- **State Management:** Redux Toolkit
+- **Routing:** React Router
+- **Authentication:** OAuth2 PKCE
+
+### Key Features
+- **Microservices Architecture** - Scalable and maintainable
+- **API Gateway** - Centralized routing and authentication
+- **OAuth2 Authentication** - Secure user authentication
+- **Message Queuing** - Asynchronous communication between services
+- **Modern UI** - React with Material UI components
+- **Database Integration** - PostgreSQL and MongoDB
+- **AI Integration** - Machine learning recommendations
+
 ## Services
 
 ### 1. Eureka Service Discovery (`eureka`)
@@ -171,32 +199,3 @@ Visit [http://localhost:5173](http://localhost:5173) (or the port shown in your 
 - Routes all requests to appropriate services
 - Handles authentication and authorization
 - Provides load balancing
-
-## Development
-
-### Backend Development
-- **Language:** Java 17+
-- **Framework:** Spring Boot 3.x
-- **Build Tool:** Maven
-- **Service Discovery:** Eureka
-- **Configuration:** Spring Cloud Config
-- **Message Queue:** RabbitMQ
-- **Databases:** PostgreSQL, MongoDB
-
-### Frontend Development
-- **Framework:** React 18
-- **Build Tool:** Vite
-- **UI Library:** Material UI
-- **State Management:** Redux Toolkit
-- **Routing:** React Router
-- **Authentication:** OAuth2 PKCE
-
-### Key Features
-- **Microservices Architecture** - Scalable and maintainable
-- **API Gateway** - Centralized routing and authentication
-- **OAuth2 Authentication** - Secure user authentication
-- **Message Queuing** - Asynchronous communication between services
-- **Modern UI** - React with Material UI components
-- **Database Integration** - PostgreSQL and MongoDB
-- **AI Integration** - Machine learning recommendations
-
