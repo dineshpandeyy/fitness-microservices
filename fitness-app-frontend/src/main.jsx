@@ -12,20 +12,9 @@ import { authConfig } from './authConfig'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <AuthProvider authConfig={authConfig}
-    loadingComponent={<div>Loading...</div>}>
+                loadingComponent={<div>Loading...</div>}>
     <Provider store={store}>
       <App />
     </Provider>
   </AuthProvider>,
 )
-
-
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import App from './App.jsx'
-
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
