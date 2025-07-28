@@ -22,6 +22,7 @@ function App() {
   const { token, tokenData, logIn, logOut, isAuthenticated } = useContext(AuthContext);
   const dispatch = useDispatch();
   const [authReady, setAuthReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
     if (token) {
@@ -34,7 +35,7 @@ function App() {
     <Router>
       {!token ? (
       <Box
-        sx={{
+      sx={{
           minHeight: '100vh',
           width: '100vw',
           display: 'flex',
@@ -48,23 +49,33 @@ function App() {
             <FitnessCenterIcon color="primary" sx={{ fontSize: 48, mb: 2 }} />
             <Typography variant="h4" gutterBottom fontWeight={700} color="primary.main">
               Welcome to FitTrack
-            </Typography>
+      </Typography>
             <Typography variant="subtitle1" sx={{ mb: 3, color: 'text.secondary' }}>
               Track your workouts, stay motivated, and achieve your fitness goals!
-            </Typography>
-            <Button variant="contained" color="primary" size="large" onClick={logIn} sx={{ mt: 2, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2 }}>
-              Login
+      </Typography>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              size="large" 
+              disabled={isLoading}
+              onClick={() => {
+                setIsLoading(true);
+                try {
+                  logIn();
+                } catch (error) {
+                  console.error('Login error:', error);
+                  setIsLoading(false);
+                  alert('Login failed. Please check if Keycloak is running on http://localhost:8181');
+                }
+              }} 
+              sx={{ mt: 2, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2 }}
+            >
+              {isLoading ? 'Connecting...' : 'Login'}
             </Button>
           </CardContent>
         </Card>
-      </Box>
+    </Box>
             ) : (
-              // <div>
-              //   <pre>{JSON.stringify(tokenData, null, 2)}</pre>
-              //   <pre>{JSON.stringify(token, null, 2)}</pre>
-              // </div>
-
-             
 
               <Box sx={{ p: 2, border: '1px dashed grey' }}>
                  <Button variant="contained" color="secondary" onClick={logOut}>
